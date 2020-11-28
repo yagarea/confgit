@@ -2,7 +2,7 @@
 
 import argparse
 import zipfile
-from os import path, walk, getcwd
+from os import path, walk, getcwd, chdir, popen
 import yaml
 import datetime
 from colorama import Fore, Back, Style
@@ -11,12 +11,21 @@ from colorama import Fore, Back, Style
 DEFAULT_CONFIG_PATH = "~/.config/confgit.yml"
 
 
-def init():
-    pass
+def init(repo_dir, config_path):
+    chdir(path.realpath(repo_dir))
+    execute_command("git init")
+    if not path.isfile(config_path):
+        with open(config_path, "w") as new_config:
+            new_config.write(
+                f"exclude: null\n\ninclude: null\n\nrepo_dir: {getcwd().replace(path.expanduser('~'), '~')}"
+            )
+        cg_print(f"New config file generated: {config_path}")
+    else:
+        print_warning(f"Config file {config_path} already exists")
 
 
 def sync():
-    # git pill
+    # git pull
     # nakopírovat configy na originy
     pass
 
@@ -27,13 +36,17 @@ def update():
 
 
 def backup(repo_dir, backup_name):
+    if backup_name[-4:] != ".zip":
+        backup_name += ".zip"
     backup_zip_file = zipfile.ZipFile(backup_name, mode="w", compression=zipfile.ZIP_DEFLATED)
-    file_paths = []
+    cg_print("Creating backup:")
+    
     for root, directories, files in walk(repo_dir):
-        for filename in files:
-            print(f"BACKUP: {filename}")
+        for i, filename in enumerate(files):
+            print(f"\t\t{'├── ' if i < len(files) - 1 else '└── '}{filename}")
             backup_zip_file.write(path.join(root, filename), arcname=filename)
     backup_zip_file.close()
+    cg_print(f"Backup saved as {backup_name}")
 
 
 def include(config_path, file):
@@ -42,7 +55,7 @@ def include(config_path, file):
     if config["include"] is None:
         config["include"] = []
     if file in config["include"]:
-        print(f"{file} is already included")
+        cg_print(f"{file} is already included")
         return
     config["include"].append(file)
     with open(config_path, "w") as f:
@@ -95,7 +108,7 @@ def get_arguments():
         nargs="?",
         const=str(getcwd()),
         default=False,
-        dest="INIT_LOCATION",
+        dest="INIT",
         help="init confgit repository")
     parser.add_argument(
         "-c", "--config",
@@ -109,8 +122,20 @@ def get_arguments():
     return arguments
 
 
+def execute_command(command):
+    cg_print(popen(command).read().strip())
+
+
+def cg_print(msg):
+    print(f"{Back.GREEN + Fore.BLACK}CONFGIT:{Style.RESET_ALL} {msg}")
+
+
 def print_error(msg):
-    print(f"{Fore.RED}ERROR:{Style.RESET_ALL} {msg}")
+    cg_print(f"{Fore.RED}ERROR:{Style.RESET_ALL} {msg}")
+
+
+def print_warning(msg):
+    cg_print(f"{Fore.LIGHTRED_EX}WARN:{Style.RESET_ALL} {msg}")
 
 
 def load_config(config_file_path, parse_paths=True):
@@ -150,10 +175,10 @@ def relative_path_to_absolute_path(rp, add_pwd=True):
 if __name__ == '__main__':
     args = get_arguments()
 
-    # print(args, end="\n\n")
-    config = load_config(args["CONFIG_PATH"], parse_paths=True)
-    # print(config)
+    if args["INIT"]:
+        init(args["INIT"], args["CONFIG_PATH"])
 
+    config = load_config(args["CONFIG_PATH"], parse_paths=True)
     if args["BACKUP"]:
         backup(config["repo_dir"], args["BACKUP"])
 
