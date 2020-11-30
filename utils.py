@@ -2,6 +2,7 @@ from colorama import Fore, Back, Style
 import datetime
 import argparse
 from os import path, getcwd, walk, chdir, popen
+from sys import exit
 import yaml
 
 DEFAULT_CONFIG_PATH = "~/.config/confgit.yml"
@@ -116,3 +117,13 @@ def load_config(config_file_path):
 def save_config(config, config_file_path):
     with open(config_file_path, "w") as f:
         yaml.dump(config, f, default_flow_style=False)
+
+
+#################################################################
+
+def execute_command(command):
+    cg_print(popen(command).read().strip())
+
+
+def end(exit_code=0):
+    exit(exit_code)
