@@ -5,11 +5,13 @@ from utils import *
 
 
 def init(repo_dir, config_path):
-    chdir(path.realpath(repo_dir))
+    set_cwd_to(repo_dir)
     if not path.isfile(config_path):
         with open(config_path, "w") as new_config:
             new_config.write(
-                f"repo_dir: {path_relative_home(getcwd())}"
+                f"repo_dir: {path_relative_home(getcwd())}/\n" +
+                "include: NULL\n" +
+                "exclude: NULL"
             )
         cg_print(f"New config file generated: {config_path}")
     else:
@@ -56,7 +58,7 @@ def include(file_to_include, config, config_path):
         cg_print(f"{file_to_include} is already included")
         end()
     config["include"].append(path_relative_home(file_to_include))
-    save_config(config)
+    save_config(config, config_path)
     cg_print(f"{file_to_include} has been successfully included in to confgit repository")
     end()
 
@@ -66,12 +68,23 @@ def exclude(file):
 
 
 if __name__ == '__main__':
-    args = get_arguments()
-    if args.INIT:
-        init(args.INIT, args.CONFIG_PATH)
+    if contains_confgit_command():
+        args = vars(get_arguments())
+        print_debug(args)
+        if "init_path" in args.keys():
+            init(args["init_path"], args["CONFIG_PATH"])
 
-    config = load_config(args.CONFIG_PATH)
-    print(args)
+        config = load_config(args["CONFIG_PATH"])
+        print_debug(config)
+
+        if "file_to_include" in args.keys():
+            include(args["file_to_include"], config, args["CONFIG_PATH"])
+
+    else:
+        config, git_command = parse_git_args()
+        set_cwd_to(config["repo_dir"])
+        send_to_git(git_command)
+
 
     #if args.BACKUP:
         #backup(config.repo_dir, args.BACKUP)
