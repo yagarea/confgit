@@ -1,9 +1,11 @@
 # Confgit
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
-[![Pending Pull-Requests](http://githubbadges.herokuapp.com/boennemann/badges/pulls.svg?style=flat)](https://github.com/boennemann/badges/pulls)
-[![Open Issues](http://githubbadges.herokuapp.com/boennemann/badges/issues.svg?style=flat)](https://github.com/boennemann/badges/issues)
-
 Git overhead for version control of your config files.
+
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
+
+[![Pending Pull-Requests](http://githubbadges.herokuapp.com/boennemann/badges/pulls.svg?style=flat)](https://github.com/yagarea/confgit/pulls)
+
+[![Open Issues](http://githubbadges.herokuapp.com/boennemann/badges/issues.svg?style=flat)](https://github.com/yagarea/confgit/issues)
 
 ## Usage
 
