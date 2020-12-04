@@ -1,18 +1,24 @@
 # Confgit
-Git overhead for version control of your config files
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
+[![Pending Pull-Requests](http://githubbadges.herokuapp.com/boennemann/badges/pulls.svg?style=flat)](https://github.com/boennemann/badges/pulls)
+[![Open Issues](http://githubbadges.herokuapp.com/boennemann/badges/issues.svg?style=flat)](https://github.com/boennemann/badges/issues)
+
+Git overhead for version control of your config files.
 
 ## Usage
 
 ### Confgit internal commands
- 
+Argument in _[]_ are optional.
+
 #### positional arguments:
-- **init**                - Init confgit repository 
-- **sync**                - Sync origins of files from confgit repository
-- **update**              - Update files in config repository from their origin
-- **backup**              - Create zip file with backup of all files in confgit repository
-- **include**             - Include file or directory in to confgit repository
-- **exclude**             - Exclude file or directory in to confgit repository 
-  
+- **init**                      - Init confgit repository and generate config file in "~/.config/confgit.yml" if you do not 
+  specify other location using `--config` argument
+- **sync**                      - Sync origins of files from confgit repository
+- **update**                    - Update files in config repository from their origin
+- **backup** _[backup name]_    - Create zip file with backup of all files in confgit repository
+- **include** _file to include_ - Include file or directory in to confgit repository
+- **exclude** _file to exclude_ - Exclude file or directory in to confgit repository 
+
 #### optional arguments:
 - **-h**, **--help**                                - show this help message and exit 
 - **-c** _CONFIG_PATH_, **--config** _CONFIG_PATH_  - load alternative config
