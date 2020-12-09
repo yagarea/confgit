@@ -26,9 +26,23 @@ def sync():
     pass
 
 
-def update():
-    # nakopírovat originy na jejich kopie
-    pass
+def update(config):
+    cg_print("Start updating")
+    files_to_include = []
+    if config["include"] is None:
+        return []
+    for fi in config["include"]:
+        files_to_include.extend(mine_files(fi))
+    if config["exclude"] is not None:
+        for fe in config["exclude"]:
+            for i in mine_files(fe):
+                if i in files_to_include:
+                    files_to_include.remove(i)
+    cg_print(f"Including {len(files_to_include)} files")
+    for fti in files_to_include:
+        cg_print(f"Updating {path_relative_home(fti)}")
+        write_file_to_other_file(fti, path_in_repo(fti, config))
+    end()
 
 
 def backup(repo_dir, backup_name):
@@ -63,14 +77,32 @@ def include(file_to_include, config, config_path):
     end()
 
 
-def exclude(file):
-    pass
+def exclude(file_to_exclude, config, config_path):
+    if file_to_exclude == "" or file_to_exclude is None:
+        print_error("You have to specify file for exclude")
+        end(1)
+    if not path.exists(file_to_exclude):
+        print_error(f"File or directory {file_to_exclude} does not exists")
+        end(1)
+    if config["exclude"] is None:
+        config["exclude"] = []
+    if file_to_exclude in config["exclude"]:
+        cg_print(f"{file_to_exclude} is already excluded")
+        end()
+    config["exclude"].append(path_relative_home(file_to_exclude))
+    save_config(config, config_path)
+    cg_print(f"{file_to_exclude} has been successfully excluded from confgit repository")
+    end()
 
 
 if __name__ == '__main__':
     if contains_confgit_command():
         args = vars(get_arguments())
         print_debug(args)
+
+        if "help" in args.keys():
+            print(help_message)
+
         if "init_path" in args.keys():
             init(args["init_path"], args["CONFIG_PATH"])
 
@@ -80,14 +112,18 @@ if __name__ == '__main__':
         if "file_to_include" in args.keys():
             include(args["file_to_include"], config, args["CONFIG_PATH"])
 
+        if "file_to_exclude" in args.keys():
+            exclude(args["file_to_exclude"], config, args["CONFIG_PATH"])
+
+        if "update" in args.keys():
+            update(config)
+
     else:
         config, git_command = parse_git_args()
         set_cwd_to(config["repo_dir"])
         send_to_git(git_command)
 
-
-    #if args.BACKUP:
-        #backup(config.repo_dir, args.BACKUP)
-    #elif args.FILE_TO_INCLUDE is not None:
-        #include(args.FILE_TO_INCLUDE, config, args.CONFIG_PATH)
-
+    # if args.BACKUP:
+    # backup(config.repo_dir, args.BACKUP)
+    # elif args.FILE_TO_INCLUDE is not None:
+    # include(args.FILE_TO_INCLUDE, config, args.CONFIG_PATH)
