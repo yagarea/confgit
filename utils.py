@@ -1,7 +1,7 @@
 from colorama import Fore, Back, Style
 import datetime
 import argparse
-from os import path, getcwd, walk, chdir, popen, mkdir
+from os import path, getcwd, walk, chdir, popen, makedirs
 from sys import exit, argv
 import yaml
 import re
@@ -170,13 +170,8 @@ def mine_files(path_to_mine):
     return list_of_files
 
 
-def write_file_to_other_file(source_path, destination_path: str): #Does not work in case path contains non existing dirs
-    if path.isdir(path.dirname("".join(destination_path.split("/")))):
-        dir_path = ""
-        for d in path.dirname(destination_path).split("/")[:-1]:
-            dir_path += d
-            if not path.isdir(dir_path):
-                mkdir(dir_path)
+def write_file_to_other_file(source_path, destination_path: str):
+    makedirs(path.dirname(destination_path), exist_ok=True)
     with open(source_path, "r") as source:
         with open(destination_path, "w") as destination:
             destination.write(source.read())

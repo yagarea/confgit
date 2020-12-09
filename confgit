@@ -42,6 +42,7 @@ def update(config):
     for fti in files_to_include:
         cg_print(f"Updating {path_relative_home(fti)}")
         write_file_to_other_file(fti, path_in_repo(fti, config))
+    cg_print("Successfully updated")
     end()
 
 
