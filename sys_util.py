@@ -3,14 +3,13 @@ import argparse
 from os import getcwd, popen
 from sys import argv
 
-
 import re
 
-from log_util import *
 from fs_util import *
 
-DEFAULT_CONFIG_PATH = "~/.config/confgit.yml"
+# SYSTEM AND INPUT UTILITIES
 
+DEFAULT_CONFIG_PATH = "~/.config/confgit.yml"
 
 ###########################################################################
 # Parsing Arguments
@@ -70,7 +69,7 @@ def get_arguments():
         help="exclude file or directory from confgit repository")
 
     arguments = parser.parse_args()
-    arguments.CONFIG_PATH = path_absolute(arguments.CONFIG_PATH)
+    arguments.CONFIG_PATH = absolute_path(arguments.CONFIG_PATH)
     return arguments
 
 
@@ -87,18 +86,11 @@ def parse_git_args():
     config_path_regex = re.search(r"--config\s([^\s]*)", args_string, re.IGNORECASE)
     if config_path_regex:
         config_path = config_path_regex.group(1)
-    return load_config(path_absolute(config_path)), args_string.replace("--config " + config_path, "")
-
-
-############################################################################
-# File system utilities
-
-
-
-
+    return load_config(absolute_path(config_path)), args_string.replace("--config " + config_path, "")
 
 ###########################################################################
 # System calls
+
 
 def execute_command(command):
     return popen(command).read().strip()
