@@ -1,7 +1,8 @@
 #!/usr/bin/env python
 
 import zipfile
-from utils import *
+from sys_util import *
+from fs_util import *
 
 
 def init(repo_dir, config_path):
@@ -21,9 +22,7 @@ def init(repo_dir, config_path):
 
 
 def sync():
-    # git pull
-    # nakopírovat configy na originy
-    pass
+    cg_print("Start syncing")
 
 
 def update(config):
@@ -118,6 +117,9 @@ if __name__ == '__main__':
 
         if "update" in args.keys():
             update(config)
+
+        if "sync" in args.keys():
+            sync(config)
 
     else:
         config, git_command = parse_git_args()
