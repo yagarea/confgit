@@ -1,5 +1,4 @@
 from os import path, walk, chdir, makedirs
-from sys import exit
 import yaml
 
 from log_util import *
@@ -73,9 +72,31 @@ def mine_files(path_to_mine):
     return list_of_files
 
 
+# get pair of all registered files in config file in format:
+def get_all_registered_files(config):
+    registered_files = []
+    if config["include"] is None:
+        return []
+    for fi in config["include"]:
+        registered_files.extend(mine_files(fi))
+    if config["exclude"] is not None:
+        for fe in config["exclude"]:
+            for i in mine_files(fe):
+                if i in registered_files:
+                    registered_files.remove(i)
+    return registered_files
+
+
 # writes over source file to its destination file
 def write_file_to_other_file(source_path, destination_path: str):
     makedirs(path.dirname(destination_path), exist_ok=True)
     with open(source_path, "r") as source:
         with open(destination_path, "w") as destination:
             destination.write(source.read())
+
+
+# Checks is two files has same content
+def have_same_content(file_1_path, file_2_path):
+    with open(file_1_path, "r") as f1:
+        with open(file_2_path, "r") as f2:
+            return f1.read() == f2.read()

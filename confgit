@@ -21,22 +21,26 @@ def init(repo_dir, config_path):
     end()
 
 
-def sync():
+def sync(config):
     cg_print("Start syncing")
+    registered_files = get_all_registered_files(config)
+    for rf in registered_files:
+        if have_same_content(rf, path_in_repo(rf, config)):
+            registered_files.remove(rf)
+    for rf in registered_files:
+        cg_print(f"\t{rf}")
+    cg_print("Do you want to sync content of all these files with theirs complementary files ? [Y/N]")
+    answer = str(input()).lower()
+    if answer == "y":
+        for rf in registered_files:
+            cg_print(f"Syncing {path_relative_home(rf)}")
+            write_file_to_other_file(path_in_repo(rf, config), rf)
+    end()
 
 
 def update(config):
     cg_print("Start updating")
-    files_to_include = []
-    if config["include"] is None:
-        return []
-    for fi in config["include"]:
-        files_to_include.extend(mine_files(fi))
-    if config["exclude"] is not None:
-        for fe in config["exclude"]:
-            for i in mine_files(fe):
-                if i in files_to_include:
-                    files_to_include.remove(i)
+    files_to_include = get_all_registered_files(config)
     cg_print(f"Including {len(files_to_include)} files")
     for fti in files_to_include:
         cg_print(f"Updating {path_relative_home(fti)}")
@@ -45,7 +49,8 @@ def update(config):
     end()
 
 
-def backup(repo_dir, backup_name):
+def backup(config, backup_name):
+    repo_dir = config["repo_dir"]
     if backup_name[-4:] != ".zip":
         backup_name += ".zip"
     backup_zip_file = zipfile.ZipFile(backup_name, mode="w", compression=zipfile.ZIP_DEFLATED)
@@ -68,7 +73,7 @@ def include(file_to_include, config, config_path):
         end(1)
     if config["include"] is None:
         config["include"] = []
-    if file_to_include in config["include"]:
+    if path_relative_home(file_to_include) in config["include"]:
         cg_print(f"{file_to_include} is already included")
         end()
     config["include"].append(path_relative_home(file_to_include))
@@ -121,12 +126,10 @@ if __name__ == '__main__':
         if "sync" in args.keys():
             sync(config)
 
+        if "backup" in args.keys():
+            backup(config, args["backup_name"])
+
     else:
         config, git_command = parse_git_args()
         set_cwd_to(config["repo_dir"])
         send_to_git(git_command)
-
-    # if args.BACKUP:
-    # backup(config.repo_dir, args.BACKUP)
-    # elif args.FILE_TO_INCLUDE is not None:
-    # include(args.FILE_TO_INCLUDE, config, args.CONFIG_PATH)
