@@ -24,15 +24,19 @@ def init(repo_dir, config_path):
 def sync(config):
     cg_print("Start syncing")
     registered_files = get_all_registered_files(config)
+    registered_files_dif = []
     for rf in registered_files:
-        if have_same_content(rf, path_in_repo(rf, config)):
-            registered_files.remove(rf)
-    for rf in registered_files:
+        if not have_same_content(rf, path_in_repo(rf, config)):
+            registered_files_dif.append(rf)
+    if len(registered_files_dif) == 0:
+        cg_print("There are no changes in complementary files of registered files")
+        end()
+    for rf in registered_files_dif:
         cg_print(f"\t{rf}")
     cg_print("Do you want to sync content of all these files with theirs complementary files ? [Y/N]")
     answer = str(input()).lower()
     if answer == "y":
-        for rf in registered_files:
+        for rf in registered_files_dif:
             cg_print(f"Syncing {path_relative_home(rf)}")
             write_file_to_other_file(path_in_repo(rf, config), rf)
     end()
@@ -41,8 +45,15 @@ def sync(config):
 def update(config):
     cg_print("Start updating")
     files_to_include = get_all_registered_files(config)
-    cg_print(f"Including {len(files_to_include)} files")
+    files_to_include_dif = []
     for fti in files_to_include:
+        if not have_same_content(fti, path_in_repo(fti, config)):
+            files_to_include_dif.append(fti)
+    if len(files_to_include_dif) == 0:
+        cg_print("There are no changes in origins of registered files")
+        end()
+    cg_print(f"Including {len(files_to_include_dif)} files")
+    for fti in files_to_include_dif:
         cg_print(f"Updating {path_relative_home(fti)}")
         write_file_to_other_file(fti, path_in_repo(fti, config))
     cg_print("Successfully updated")
@@ -58,6 +69,8 @@ def backup(config, backup_name):
 
     for root, directories, files in walk(repo_dir):
         for i, filename in enumerate(files):
+            if ".git" in root:
+                continue
             print(f"\t\t{'├── ' if i < len(files) - 1 else '└── '}{filename}")
             backup_zip_file.write(path.join(root, filename), arcname=filename)
     backup_zip_file.close()
@@ -105,6 +118,9 @@ if __name__ == '__main__':
         args = vars(get_arguments())
         print_debug(args)
 
+        if args["debug"]:
+            turn_on_debug_mode()
+
         if "help" in args.keys():
             print(help_message)
 
@@ -126,10 +142,11 @@ if __name__ == '__main__':
         if "sync" in args.keys():
             sync(config)
 
-        if "backup" in args.keys():
+        if "backup_name" in args.keys():
             backup(config, args["backup_name"])
 
     else:
         config, git_command = parse_git_args()
+        print_debug(git_command)
         set_cwd_to(config["repo_dir"])
         send_to_git(git_command)

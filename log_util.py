@@ -2,6 +2,14 @@ from colorama import Fore, Back, Style
 
 # LOGGING UTILITIES
 
+debug_mode = False
+
+
+# turn on debugging mode
+def turn_on_debug_mode():
+    global debug_mode
+    debug_mode = True
+
 
 # CG: message
 def cg_print(msg):
@@ -20,4 +28,5 @@ def print_warning(msg):
 
 # CG: DEBUG: message
 def print_debug(msg):
-    cg_print(f"{Back.WHITE}{Fore.BLACK}DEBUG:{Style.RESET_ALL} {msg}")
+    if debug_mode:
+        cg_print(f"{Back.WHITE}{Fore.BLACK}DEBUG:{Style.RESET_ALL} {msg}")
