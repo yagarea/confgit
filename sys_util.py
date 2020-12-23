@@ -28,6 +28,13 @@ def get_arguments():
         dest="CONFIG_PATH",
         help="load alternative config")
 
+    parser.add_argument(
+        "--debug",
+        action="store_true",
+        default=False,
+        dest="debug",
+        help="enable debug mode")
+
     subparsers = parser.add_subparsers(help="Confgit commands:")
 
     subparsers.add_parser("init", help="Init confgit repository").add_argument(
@@ -51,8 +58,7 @@ def get_arguments():
         type=str,
         action="store",
         nargs="?",
-        const=f"confgit-backup-{str(datetime.datetime.now()).replace(' ', '-')}.zip",
-        default=False,
+        default=f"confgit-backup-{str(datetime.datetime.now()).replace(' ', '-')}.zip",
         help="create zip file with config backup")
     subparsers.add_parser("include", help="Include file or directory in to confgit repository").add_argument(
         "file_to_include",
@@ -74,7 +80,7 @@ def get_arguments():
 
 
 def contains_confgit_command():
-    for c in ["init", "include", "exclude", "sync", "update", "backup", "--help"]:
+    for c in ["init", "include", "exclude", "sync", "update", "backup", "--help", "--debug"]:
         if c in argv:
             return True
     return False
@@ -98,9 +104,11 @@ def execute_command(command):
 
 def send_to_git(git_command):
     output = execute_command(f"git {git_command}")
-    cg_print(f"{Fore.BLUE}GIT:{Style.RESET_ALL}")
-    for o in output.split("\n"):
-        print(f"\t{o}")
+    print_debug(output)
+    if output != "":
+        cg_print(f"{Fore.BLUE}GIT:{Style.RESET_ALL}")
+        for o in output.split("\n"):
+            print(f"\t{o}")
 
 
 def end(exit_code=0):
