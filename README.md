@@ -1,7 +1,5 @@
 # Confgit
 
----
-
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
 [![PR info](https://img.shields.io/github/issues-pr/yagarea/confgit)](https://github.com/yagarea/confgit/pulls)
 [![CodeFactor](https://www.codefactor.io/repository/github/yagarea/confgit/badge/master)](https://www.codefactor.io/repository/github/yagarea/confgit/overview/master)
@@ -64,3 +62,5 @@ Argument in _[]_ are optional.
 - **pull**              - Fetch from and integrate with another repository or a local branch
 - **push**              - Update remote refs along with associated objects
 
+---
+**Disclaimer:** Author does not have any responsibility for any demage or data los caused by usage of this software.
