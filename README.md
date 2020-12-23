@@ -1,8 +1,15 @@
 # Confgit
-Git overhead for version control of your config files.
+
+---
 
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
+[![PR info]https://img.shields.io/github/issues-pr/yagarea/confgit
 [![CodeFactor](https://www.codefactor.io/repository/github/yagarea/confgit/badge/master)](https://www.codefactor.io/repository/github/yagarea/confgit/overview/master)
+[![Python 3.x](https://img.shields.io/badge/python-2.6|2.7|3.x-yellow.svg)](https://www.python.org/)
+[![Closed issues](https://img.shields.io/github/issues-closed/yagarea/confgit)
+
+Git overhead for version control of your config files. The main difference between confgit and any other config file 
+version system is it's simplicity. It makes version control and migration of config files safe and easy.
 
 ## Usage
 
@@ -12,15 +19,16 @@ Argument in _[]_ are optional.
 #### positional arguments:
 - **init**                      - Init confgit repository and generate config file in "~/.config/confgit.yml" if you do not 
   specify other location using `--config` argument
-- **sync**                      - Sync origins of files from confgit repository
-- **update**                    - Update files in config repository from their origin
+- **sync**                      - Write content of complementary files of registered files to their origins
+- **update**                    - Write content of origins of registered files to their's complementary files
 - **backup** _[backup name]_    - Create zip file with backup of all files in confgit repository
-- **include** _file to include_ - Include file or directory in to confgit repository
-- **exclude** _file to exclude_ - Exclude file or directory in to confgit repository 
+- **include** _file to include_ - Registeres file or directory in to confgit repository
+- **exclude** _file to exclude_ - Exclude file or directory from registered files 
 
 #### optional arguments:
 - **-h**, **--help**                                - show this help message and exit 
 - **-c** _CONFIG_PATH_, **--config** _CONFIG_PATH_  - load alternative config
+- **--debug**                                       - show additional information for debugging
 
 ### Git original commands supported by confgit
 
