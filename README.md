@@ -3,9 +3,9 @@
 ---
 
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
-[![PR info]https://img.shields.io/github/issues-pr/yagarea/confgit
+[![PR info](https://img.shields.io/github/issues-pr/yagarea/confgit)
 [![CodeFactor](https://www.codefactor.io/repository/github/yagarea/confgit/badge/master)](https://www.codefactor.io/repository/github/yagarea/confgit/overview/master)
-[![Python 3.x](https://img.shields.io/badge/python-2.6|2.7|3.x-yellow.svg)](https://www.python.org/)
+[![Python 3.x](https://img.shields.io/badge/python-3.x-green.svg)](https://www.python.org/)
 [![Closed issues](https://img.shields.io/github/issues-closed/yagarea/confgit)
 
 Git overhead for version control of your config files. The main difference between confgit and any other config file 
