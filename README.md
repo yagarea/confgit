@@ -6,7 +6,7 @@
 [![Python 3.x](https://img.shields.io/badge/python-3.x-green.svg)](https://www.python.org/)
 [![Closed issues](https://img.shields.io/github/issues-closed/yagarea/confgit)](https://github.com/yagarea/confgit/issues)
 
-Git overhead for version control of your config files. The main difference between confgit and any other config file 
+Confgit is a Git overhead for version control of your config files. The main difference between confgit and any other config file 
 version system is it's simplicity. It makes version control and migration of config files safe and easy.
 
 ## Usage
@@ -19,9 +19,9 @@ Argument in _[]_ are optional.
   specify other location using `--config` argument
 - **sync**                      - Write content of complementary files of registered files to their origins
 - **update**                    - Write content of origins of registered files to their's complementary files
-- **backup** _[backup name]_    - Create zip file with backup of all files in confgit repository
-- **include** _file to include_ - Registeres file or directory in to confgit repository
-- **exclude** _file to exclude_ - Exclude file or directory from registered files 
+- **backup** _[backup name]_    - Create a zip file with backup of all files in confgit repository
+- **include** _file to include_ - Registers a file or a directory into a confgit repository
+- **exclude** _file to exclude_ - Excludes a file or directory from the registered files 
 
 #### optional arguments:
 - **-h**, **--help**                                - show this help message and exit 
@@ -63,4 +63,4 @@ Argument in _[]_ are optional.
 - **push**              - Update remote refs along with associated objects
 
 ---
-**Disclaimer:** Author does not have any responsibility for any demage or data los caused by usage of this software.
+**Disclaimer:** Author does not have any responsibility for any damage or data loss caused by the usage of this software.
