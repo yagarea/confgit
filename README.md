@@ -5,6 +5,7 @@
 [![CodeFactor](https://www.codefactor.io/repository/github/yagarea/confgit/badge/master)](https://www.codefactor.io/repository/github/yagarea/confgit/overview/master)
 [![Python 3.x](https://img.shields.io/badge/python-3.x-green.svg)](https://www.python.org/)
 [![Closed issues](https://img.shields.io/github/issues-closed/yagarea/confgit)](https://github.com/yagarea/confgit/issues)
+[![Repo starts](https://img.shields.io/github/stars/yagarea/confgit?style=social)](https://github.com/yagarea/confgit/stargazers)
 
 Confgit is a Git overhead for version control of your config files. The main difference between confgit and any other config file 
 version system is it's simplicity. It makes version control and migration of config files safe and easy.
