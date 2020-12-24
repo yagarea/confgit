@@ -11,10 +11,16 @@ Confgit is a Git overhead for version control of your config files. The main dif
 between confgit and any other config file version system is it's simplicity. It makes 
 version control and migration of config files safe and easy.
 
+**How does it work ?**  
+With confgit you does not have to learn any think new. Only thing you need is to set up
+directory where confgit will copy and all files you register. In result you 
+have all your config files cenrtalized in one directory where you can edit and maintain
+your config files with git.
+
 ## Usage
 
 #### init
-Initialize git repository for your config files in current directoty and generates 
+Initialize git repository for your config files in current directory and generates 
 config file in "~/.config/confgit.yml" if you do not specify other location using 
 `--config` argument.
 
@@ -58,7 +64,7 @@ confgit backup my_backup_monday.zip
 (If name of backup does not end with `.zip` it will be automatically added)
 
 
-#### include _file to include_
+#### include
 Registers a file or a directory into a confgit watch list.
 
 Example:
@@ -72,7 +78,7 @@ confgit include ~/.config/
 (If you give directory as parameter it will register all its files recursively)
 
 
-#### exclude _file to exclude_
+#### exclude
 Excludes a file or directory from the registered files.
 
 Example:
@@ -85,6 +91,11 @@ confgit exclude .config/rofi/
 ```
 (If you give directory as parameter it will exclude all its files recursively)
 
+#### _other_
+Every other command will be called as git argument in directory with registered files.
+
+Example:  
+`confgit pull` -> `git pull`
 
 #### optional arguments:
 - **-h**, **--help**                                - show this help message and exit 
