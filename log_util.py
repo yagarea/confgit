@@ -5,12 +5,6 @@ from colorama import Fore, Back, Style
 debug_mode = False
 
 
-# turn on debugging mode
-def turn_on_debug_mode():
-    global debug_mode
-    debug_mode = True
-
-
 # CG: message
 def cg_print(msg):
     print(f"{Back.GREEN + Fore.BLACK}CG:{Style.RESET_ALL} {msg}")
