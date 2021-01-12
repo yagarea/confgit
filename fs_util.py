@@ -98,6 +98,9 @@ def write_file_to_other_file(source_path, destination_path: str):
 
 # Checks is two files has same content
 def have_same_content(file_1_path, file_2_path):
-    with open(file_1_path, "r") as f1:
-        with open(file_2_path, "r") as f2:
-            return f1.read() == f2.read()
+    try:
+        with open(file_1_path, "r") as f1:
+            with open(file_2_path, "r") as f2:
+                return f1.read() == f2.read()
+    except IOError:
+        return False
