@@ -12,15 +12,15 @@ between confgit and any other config file version system is it's simplicity. It 
 version control and migration of config files safe and easy.
 
 **How does it work ?**  
-With confgit you does not have to learn any think new. Only thing you need is to set up
-directory where confgit will copy and all files you register. In result you 
-have all your config files cenrtalized in one directory where you can edit and maintain
+With confgit you do not have to learn anything new. You only need to set up a
+directory where confgit will copy all files you register. In result, you
+have all your config files centralized in one directory where you can edit and maintain
 your config files with git.
 
 ## Usage
 
 #### init
-Initialize git repository for your config files in current directory and generates 
+Initialize a git repository for your config files in current directory and generates 
 config file in "~/.config/confgit.yml" if you do not specify other location using 
 `--config` argument.
 
