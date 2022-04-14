@@ -2,7 +2,7 @@ from os import path, walk, chdir, makedirs
 import yaml
 
 
-from log_util import *
+from .log_util import *
 
 # FILE SYSTEM UTILITIES
 
