@@ -1,7 +1,7 @@
 import os
 import json
-from util.log_util import *
-from util.sys_util import *
+from .util.log_util import *
+from .util.sys_util import *
 
 
 def sync(config):

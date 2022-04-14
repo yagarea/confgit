@@ -1,8 +1,8 @@
 import os
 import json
 import zipfile
-from util.log_util import *
-from util.sys_util import *
+from .util.log_util import *
+from .util.sys_util import *
 
 
 def backup(config, backup_name):
