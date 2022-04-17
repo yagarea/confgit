@@ -148,6 +148,3 @@ Git commands supported by confgit
 
 clone, add, mv, restore, rm, sparse-checkout, bisect, diff, grep, log, show, status, branch, commit, merge, rebase, reset, switch, tag, fetch, pull, push
 
-----
-
-**Disclaimer:** Author does not have any responsibility for any damage or data loss caused by the usage of this software.
