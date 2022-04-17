@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 from commands.util.sys_util import *
 from commands.util.fs_util import *
 from commands.init import *
