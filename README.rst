@@ -1,5 +1,4 @@
-
-Confgit
+confgit
 =======
 
 
@@ -39,7 +38,7 @@ Confgit
 
 Confgit is a Git overhead for version control of your config files. The main difference between confgit and any other config file version system is it's simplicity. It makes version control and migration of config files safe and easy.
 
-`Installation <./docs/installation.md>`_
+`Installation <https://confgit.readthedocs.io/en/latest/installation.html>`_
 --------------------------------------------
 
 How does it work?
