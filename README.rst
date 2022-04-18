@@ -26,9 +26,9 @@ confgit
    :alt: PR info
 
 
-.. image:: https://img.shields.io/github/issues-closed/yagarea/confgit
+.. image:: https://img.shields.io/github/issues/yagarea/confgit
    :target: https://github.com/yagarea/confgit/issues
-   :alt: Closed issues
+   :alt: Open issues
 
 
 .. image:: https://img.shields.io/github/stars/yagarea/confgit?style=social
