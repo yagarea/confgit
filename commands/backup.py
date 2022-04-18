@@ -12,7 +12,7 @@ def backup(config, backup_name):
 
     backup_zip_file = zipfile.ZipFile(backup_name, mode="w", compression=zipfile.ZIP_DEFLATED)
 
-    for root, files in walk(repo_dir):
+    for root, directories, files in walk(repo_dir):
         for i, filename in enumerate(files): # prints directory tree
             if ".git" in root:
                 continue

@@ -81,7 +81,7 @@ def mine_files(path_to_mine):
         return [path_to_mine]
     
     list_of_files = []
-    for root, files in walk(path_to_mine):
+    for root, directories, files in walk(path_to_mine):
         for filename in files:
             list_of_files.append(absolute_path(path.join(root, filename))) #* eg. '/home/user/repo/file.txt'
     
