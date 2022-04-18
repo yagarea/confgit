@@ -9,13 +9,14 @@ from .fs_util import *
 
 # SYSTEM AND INPUT UTILITIES
 
-DEFAULT_CONFIG_PATH = "~/.config/confgit.yml"
+DEFAULT_CONFIG_PATH = "~/.config/confgit.yml" #? proably going to remove later for less confusion to user - g3ner1c
 
 ###########################################################################
 # Parsing Arguments
 
 
 def get_arguments():
+
     common = argparse.ArgumentParser(
         add_help=False,
     )
@@ -51,14 +52,17 @@ def get_arguments():
         metavar="test_init",
         default=str(getcwd()) + "/",
         help="path of directory where you want to init confgit repository")
+
     subparsers.add_parser("sync", help="Sync origins of files from confgit repository", parents=[common]).add_argument(
         "sync",
         action="store_true",
         help="update original config files from their git copies")
+
     subparsers.add_parser("update", help="Update files in config repository from their origin", parents=[common]).add_argument(
         "update",
         action="store_true",
         help="")
+
     subparsers.add_parser("backup", help="Create zip file with backup of all files in confgit repository", parents=[common]).add_argument(
         "backup_name",
         type=str,
@@ -66,6 +70,7 @@ def get_arguments():
         nargs="?",
         default=f"confgit-backup-{str(datetime.datetime.now()).replace(' ', '-')}.zip",
         help="create zip file with config backup")
+
     subparsers.add_parser("include", help="Include file or directory in to confgit repository", parents=[common]).add_argument(
         "file_to_include",
         type=str,
@@ -74,6 +79,7 @@ def get_arguments():
         const="",
         default=False,
         help="include file or directory in to confgit repository")
+
     subparsers.add_parser("exclude", help="Exclude file or directory in to confgit repository", parents=[common]).add_argument(
         "file_to_exclude",
         type=str,
@@ -91,13 +97,18 @@ def contains_confgit_command():
             return True
     return False
 
-
+# returns config path, git args
+#! doesn't check if it's a valid git command, could be problem later - g3ner1c
 def parse_git_args():
+
     args_string = " ".join(argv[1:]).strip()
+
     config_path = DEFAULT_CONFIG_PATH
-    config_path_regex = re.search(r"--config\s([^\s]*)", args_string, re.IGNORECASE)
+    config_path_regex = re.search(r"--config\s([^\s]*)", args_string, re.IGNORECASE) # regex to capture config path
+
     if config_path_regex:
         config_path = config_path_regex.group(1)
+    
     return load_config(absolute_path(config_path)), args_string.replace("--config " + config_path, "")
 
 ###########################################################################
@@ -112,7 +123,7 @@ def send_to_git(git_command):
     output = execute_command(f"git {git_command}")
     print_debug(output)
     if output != "":
-        cg_print(f"{Fore.BLUE}GIT:{Style.RESET_ALL}")
+        cg_print(f"{Fore.BLUE}git:{Style.RESET_ALL}")
         for o in output.split("\n"):
             print(f"\t{o}")
 

@@ -11,7 +11,7 @@ from commands.exclude import *
 
 def main():
 
-    if contains_confgit_command():
+    if contains_confgit_command(): # if user has specified confgit command
 
         args = vars(get_arguments())
         print_debug(args)
@@ -43,10 +43,11 @@ def main():
         if "backup_name" in args.keys():
             backup(config, args["backup_name"])
 
-    else:
+    else: # if user has not specified confgit command
+        #! doesn't check if it's a valid git command, could be problem later - g3ner1c
         config, git_command = parse_git_args()
         print_debug(git_command)
-        set_cwd_to(config["repo_dir"])
+        cd(config["repo_dir"])
         send_to_git(git_command)
 
 main()
