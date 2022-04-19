@@ -2,6 +2,7 @@
 
 from commands.util.sys_util import *
 from commands.util.fs_util import *
+from commands.util.args_util import *
 from commands.init import *
 from commands.sync import *
 from commands.update import *
@@ -13,35 +14,35 @@ def main():
 
     if contains_confgit_command(): # if user has specified confgit command
 
-        args = vars(get_arguments())
-        print_debug(args)
+        args = vars(parse_confgit_args())
 
-        if args["debug"]:
+        if args['debug']:
             debug_mode = True
 
-        if "help" in args.keys():
-            print(help_message)
+        print_debug(args)
 
-        if "init_path" in args.keys():
-            init(args["init_path"], args["CONFIG_PATH"])
+        if args['command'] == 'init':
+            init(args['init_path'], args['CONFIG_PATH'])
 
-        config = load_config(args["CONFIG_PATH"])
+        config = load_config(args['CONFIG_PATH'])
         print_debug(config)
 
-        if "file_to_include" in args.keys():
-            include(args["file_to_include"], config, args["CONFIG_PATH"])
+        if args['command'] == 'include':
+            for i in args['paths']:
+                include(i, config, args['CONFIG_PATH'])
 
-        if "file_to_exclude" in args.keys():
-            exclude(args["file_to_exclude"], config, args["CONFIG_PATH"])
+        if args['command'] == 'exclude':
+            for i in args['paths']:
+                exclude(i, config, args["CONFIG_PATH"])
 
-        if "update" in args.keys():
-            update(config)
-
-        if "sync" in args.keys():
+        if args['command'] == 'sync':
             sync(config)
 
-        if "backup_name" in args.keys():
-            backup(config, args["backup_name"])
+        if args['command'] == 'update':
+            update(config)
+
+        if args['command'] == 'backup':
+            backup(config, args['backup_path'])
 
     else: # if user has not specified confgit command
         #! doesn't check if it's a valid git command, could be problem later - g3ner1c

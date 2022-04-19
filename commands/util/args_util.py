@@ -136,16 +136,9 @@ def parse_confgit_args():
 
     args = parser.parse_args()
 
-    #! ###### debug mode jank, sort out later - g3ner1c
-
-    debug_mode = args.debug
-
-    print_debug(args)
-    print(args)
-
-    #! ######
-
     args.CONFIG_PATH = absolute_path(args.CONFIG_PATH)
+
+    # print(args)
 
     return args
 
