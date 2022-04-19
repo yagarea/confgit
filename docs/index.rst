@@ -6,7 +6,7 @@
 .. include:: ../README.rst
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 10
    :caption: Table of Contents:
 
    .. add markdown docs here
