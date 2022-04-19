@@ -6,6 +6,7 @@ from sys import argv
 import re
 
 from .fs_util import *
+from .args_util import *
 
 # SYSTEM AND INPUT UTILITIES
 
@@ -15,83 +16,7 @@ DEFAULT_CONFIG_PATH = "~/.config/confgit.yml" #? proably going to remove later f
 # Parsing Arguments
 
 
-def get_arguments():
-
-    common = argparse.ArgumentParser(
-        add_help=False,
-    )
-
-    common.add_argument(
-        "-c", "--config",
-        type=str,
-        default=DEFAULT_CONFIG_PATH,
-        dest="CONFIG_PATH",
-        help="load alternative config")
-
-    common.add_argument(
-        "--debug",
-        action="store_true",
-        default=False,
-        dest="debug",
-        help="enable debug mode")
-
-    parser = argparse.ArgumentParser(
-        prog="confgit",
-        description="Git overhead for version control of your config files",
-        formatter_class=argparse.RawTextHelpFormatter,
-        parents=[common],)
-
-
-    subparsers = parser.add_subparsers(help="Confgit commands:")
-
-    subparsers.add_parser("init", help="Init confgit repository", parents=[common]).add_argument(
-        "init_path",
-        type=str,
-        action="store",
-        nargs="*",
-        metavar="test_init",
-        default=str(getcwd()) + "/",
-        help="path of directory where you want to init confgit repository")
-
-    subparsers.add_parser("sync", help="Sync origins of files from confgit repository", parents=[common]).add_argument(
-        "sync",
-        action="store_true",
-        help="update original config files from their git copies")
-
-    subparsers.add_parser("update", help="Update files in config repository from their origin", parents=[common]).add_argument(
-        "update",
-        action="store_true",
-        help="")
-
-    subparsers.add_parser("backup", help="Create zip file with backup of all files in confgit repository", parents=[common]).add_argument(
-        "backup_name",
-        type=str,
-        action="store",
-        nargs="?",
-        default=f"confgit-backup-{str(datetime.datetime.now()).replace(' ', '-')}.zip",
-        help="create zip file with config backup")
-
-    subparsers.add_parser("include", help="Include file or directory in to confgit repository", parents=[common]).add_argument(
-        "file_to_include",
-        type=str,
-        action="store",
-        nargs="?",
-        const="",
-        default=False,
-        help="include file or directory in to confgit repository")
-
-    subparsers.add_parser("exclude", help="Exclude file or directory in to confgit repository", parents=[common]).add_argument(
-        "file_to_exclude",
-        type=str,
-        action="store",
-        help="exclude file or directory from confgit repository")
-
-    arguments = parser.parse_args()
-    arguments.CONFIG_PATH = absolute_path(arguments.CONFIG_PATH)
-    return arguments
-
-
-def contains_confgit_command():
+def contains_confgit_command(): #! kind of messy probably change later - g3ner1c
     for c in ["init", "include", "exclude", "sync", "update", "backup", "--help", "--debug"]:
         if c in argv:
             return True
@@ -135,7 +60,7 @@ def end(exit_code=0):
 #############################################################################
 # Help message
 
-
+#! deprecated + gets overridden by argparse -h
 help_message = """
 CONFGIT HELP PAGE
 

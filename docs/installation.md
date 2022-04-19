@@ -23,11 +23,11 @@ Making an alias makes usage much easier. I highly recommend it.
 
 ```fish
 function confgit
-	python /absolute/path/to/main.py $argv
+	python /absolute/path/to/confgit/main.py $argv
 end
-```
 
-Replace `/absolute/path/to/` with output of `pwd`. Then hit enter and run `funcsave`.
+funcsave confgit
+```
 
 ### bash
 
@@ -36,3 +36,5 @@ Add the following line to your `~/.bashrc` file:
 ```bash
 alias confgit="python absolute/path/to/main.py"
 ```
+
+Then run `source ~/.bashrc` to load the new alias.
