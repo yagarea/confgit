@@ -1,4 +1,4 @@
-confgit
+Introduction
 =======
 
 
@@ -33,18 +33,23 @@ confgit
 
 .. image:: https://img.shields.io/github/stars/yagarea/confgit?style=social
    :target: https://github.com/yagarea/confgit/stargazers
-   :alt: Repo starts
+   :alt: Repo stars
 
 
-Confgit is a Git overhead for version control of your config files. The main difference between confgit and any other config file version system is it's simplicity. It makes version control and migration of config files safe and easy.
-
-`Installation <https://confgit.readthedocs.io/en/latest/installation.html>`_
---------------------------------------------
+Confgit is a Git overhead for version control of your config files. The main difference between confgit and any other config file version system is its simplicity. It makes version control and migration of config files safe and easy.
 
 How does it work?
 -----------------
 
-With confgit you do not have to learn anything new. You only need to set up a directory where confgit will copy all files you register. In result, you have all your config files centralized in one directory where you can edit and maintain your config files with git.
+With confgit, you do not have to learn anything new, you only need to set up a directory where confgit will copy all files you register. After setup, you will have all your config files centralized in one directory where you can edit and maintain your config files with Git.
+
+Features
+--------
+
+* **Centralization:** Manage files across multiple directories in one directory
+* **Version control:** Track config files with Git without turning your entire filesystem into a Git repository
+* **Import/Export:** Git allows you to easily push or clone your config files to and from a remote server to archive and share
+  
 
 Usage
 -----
@@ -141,9 +146,3 @@ Optional Arguments
 * ``-h``\ , ``--help``                              - show this help message and exit
 * ``-c $config_path``\ , ``--config $config_path``  - load alternative config
 * ``--debug``                                   - show additional information for debugging
-
-Git commands supported by confgit
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-clone, add, mv, restore, rm, sparse-checkout, bisect, diff, grep, log, show, status, branch, commit, merge, rebase, reset, switch, tag, fetch, pull, push
-

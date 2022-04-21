@@ -1,4 +1,4 @@
-# How to install confgit
+# Installation Guide
 
 ## Clone repository
 

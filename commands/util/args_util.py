@@ -142,4 +142,4 @@ def parse_confgit_args():
 
     return args
 
-parse_confgit_args()
+# parse_confgit_args()
