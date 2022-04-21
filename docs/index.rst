@@ -20,3 +20,4 @@ Table of Contents
    .. add markdown docs here
 
    installation.md
+   commands/commands.rst

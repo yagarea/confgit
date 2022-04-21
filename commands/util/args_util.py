@@ -142,4 +142,4 @@ def parse_confgit_args():
 
     return args
 
-# parse_confgit_args()
+parse_confgit_args() # for argparse testing using `python -m commands.util.args_util`
